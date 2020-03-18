@@ -2,20 +2,37 @@ const Game = require('./game');
 const Round = require('./round');
 const User = require('./user');
 const Word = require('./word');
+const UserRounds = require('./userRounds')
+const GuessedWords = require('./guessedWords')
 
-/**
- * If we had any associations to make, this would be a great place to put them!
- * ex. if we had another model called BlogPost, we might say:
- *
- *    BlogPost.belongsTo(User)
- */
+/** Model associations here **/
 
-/** Add instance methods here **/
+/*
+TO DO:
+Round … given a round, set letters. Query MongoDb
+Create tests for associations
+*/
+
+Game.hasMany(Round)
+
+User.belongsToMany(Round, { through: 'usersRounds'});
+Round.belongsToMany(User, { through: 'usersRounds'});
+UserRounds.belongsTo(User)
+UserRounds.belongsTo(Round)
+User.hasMany(UserRounds)
+Round.hasMany(UserRounds)
+
+Word.belongsToMany(UserRounds, { through: GuessedWords });
+UserRounds.belongsToMany(Word, { through: GuessedWords });
+GuessedWords.belongsTo(Word);
+GuessedWords.belongsTo(UserRounds);
+Word.hasMany(GuessedWords);
+UserRounds.hasMany( GuessedWords);
+
+/** Instance methods here **/
 
 Word.alphabetize = async function() {
-  const words = await Word.findAll({order: [
-            ['word', 'ASC'],
-        ]})
+  const words = await Word.findAll();
 
   // something to sort according to first letter
   return words
