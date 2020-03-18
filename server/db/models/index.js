@@ -4,6 +4,7 @@ const User = require("./user");
 const Word = require("./word");
 const UserRound = require("./userRound");
 const GuessedWord = require("./guessedWord");
+const db = require("../db");
 
 /** Model associations here **/
 
@@ -50,5 +51,8 @@ module.exports = {
   Game,
   Round,
   User,
-  Word
+  Word,
+  UserRound,
+  GuessedWord,
+  db
 };
