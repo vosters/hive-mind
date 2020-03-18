@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const Words = db.define("word", {
+const Word = db.define("word", {
   wordId: {
     wordId: Sequelize.INTEGER,
     allowNull: false
@@ -13,4 +13,4 @@ const Words = db.define("word", {
   }
 });
 
-module.exports = Words;
+module.exports = Word;
