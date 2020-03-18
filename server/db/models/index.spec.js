@@ -2,7 +2,7 @@ const { expect } = require("chai");
 const { db, Word } = require("../models");
 
 describe("Word alphabetize", () => {
-  it.only("Words are returned alphabetically", async () => {
+  it("Words are returned alphabetically", async () => {
     await Word.create({ word: "Titanic" });
     await Word.create({ word: "Sea Sluts" });
     await Word.create({ word: "Aquaholic" });

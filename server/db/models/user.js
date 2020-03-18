@@ -39,7 +39,7 @@ const User = db.define("user", {
   },
 
   gender: {
-    type: Sequelize.ENUM,
+    type: Sequelize.ENUM("male", "female", "other"),
     allowNull: true
   },
 
