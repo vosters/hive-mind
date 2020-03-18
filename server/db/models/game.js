@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Games = db.define('game', {
+const Game = db.define('game', {
 
   RoundId: {
     type: Sequelize.INTEGER,
@@ -25,4 +25,4 @@ const Games = db.define('game', {
 
 })
 
-module.exports = Games
+module.exports = Game

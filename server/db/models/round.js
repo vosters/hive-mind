@@ -1,28 +1,27 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
 
-const Games = db.define('game', {
+const Round = db.define('round', {
 
-  RoundId: {
+  GameId: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
 
-  Date: {
-    type: Sequelize.DATE,
-    allowNull: false
-  },
-
-  Winner: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-  },
-
-  Mode: {
+  letters: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
+  },
+
+  coreLetter: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+
+  gameDate: {
+    type: Sequelize.DATE
+    }
 
 })
 
-module.exports = Games
+module.exports = Round
