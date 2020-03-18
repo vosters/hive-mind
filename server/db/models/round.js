@@ -1,27 +1,26 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require("sequelize");
+const db = require("../db");
 
-const Round = db.define('round', {
-
-  GameId: {
+const Round = db.define("round", {
+  gameId: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: false
   },
 
   letters: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: false
   },
 
   coreLetter: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: false
   },
 
   gameDate: {
-    type: Sequelize.DATE
-    }
+    type: Sequelize.DATE,
+    allowNull: false
+  }
+});
 
-})
-
-module.exports = Round
+module.exports = Round;
