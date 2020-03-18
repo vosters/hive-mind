@@ -15,12 +15,12 @@ Create tests for associations
 
 Game.hasMany(Round)
 
-User.belongsToMany(Round, { through: 'usersRounds'});
-Round.belongsToMany(User, { through: 'usersRounds'});
-UserRounds.belongsTo(User)
-UserRounds.belongsTo(Round)
-User.hasMany(UserRounds)
-Round.hasMany(UserRounds)
+User.belongsToMany(Round, { through: 'usersRound'});
+Round.belongsToMany(User, { through: 'usersRound'});
+UserRound.belongsTo(User)
+UserRound.belongsTo(Round)
+User.hasMany(UserRound)
+Round.hasMany(UserRound)
 
 Word.belongsToMany(UserRound, { through: GuessedWord });
 UserRound.belongsToMany(Word, { through: GuessedWord });
