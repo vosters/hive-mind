@@ -2,8 +2,8 @@ const Game = require('./game');
 const Round = require('./round');
 const User = require('./user');
 const Word = require('./word');
-const UserRounds = require('./userRounds')
-const GuessedWords = require('./guessedWords')
+const UserRound = require('./userRound')
+const GuessedWord = require('./guessedWord')
 
 /** Model associations here **/
 
@@ -22,12 +22,12 @@ UserRounds.belongsTo(Round)
 User.hasMany(UserRounds)
 Round.hasMany(UserRounds)
 
-Word.belongsToMany(UserRounds, { through: GuessedWords });
-UserRounds.belongsToMany(Word, { through: GuessedWords });
-GuessedWords.belongsTo(Word);
-GuessedWords.belongsTo(UserRounds);
-Word.hasMany(GuessedWords);
-UserRounds.hasMany( GuessedWords);
+Word.belongsToMany(UserRound, { through: GuessedWord });
+UserRound.belongsToMany(Word, { through: GuessedWord });
+GuessedWord.belongsTo(Word);
+GuessedWord.belongsTo(UserRound);
+Word.hasMany(GuessedWord);
+UserRound.hasMany( GuessedWord);
 
 /** Instance methods here **/
 

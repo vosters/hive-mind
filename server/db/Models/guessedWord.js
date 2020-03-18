@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
 
-const GuessedWords = db.define("GuessedWord", {
+const GuessedWord = db.define("GuessedWord", {
   id: {
     type: Sequelize.INTEGER,
     primaryKey: true,
@@ -10,4 +10,4 @@ const GuessedWords = db.define("GuessedWord", {
   }
 });
 
-module.exports = GuessedWords;
+module.exports = GuessedWord;
