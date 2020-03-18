@@ -6,6 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
+    "lint": "eslint ./ --ignore-path .gitignore",
+    "lint-fix": "npm run lint -- --fix",
     "test": "npm run test-server & npm run test-client",
     "test-client": "jest",
     "test-server": "NODE_ENV='test' mocha \"./server/**/*.spec.js\" \"./script/**/*.spec.js\" --require @babel/polyfill --require @babel/register"
