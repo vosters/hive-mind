@@ -25,3 +25,10 @@ Word.alphabetize = async function() {
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+
+module.exports = {
+  Game,
+  Round,
+  User,
+  Word
+};
