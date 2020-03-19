@@ -25,18 +25,18 @@ Game.belongsTo(User, { as: "winner", foreignKey: "winnerId" });
 Game.hasMany(Round);
 Round.belongsTo(Game);
 
+// UserRound has one user, one round
+UserRound.belongsTo(User);
+UserRound.belongsTo(Round);
+User.hasMany(UserRound);
+Round.hasMany(UserRound);
+
 /* Many-to-many associations */
 
 // Rounds contain many users
 // Users can play in many rounds
 User.belongsToMany(Round, { through: UserRound });
 Round.belongsToMany(User, { through: UserRound });
-
-// UserRound has one user, one round
-UserRound.belongsTo(User);
-UserRound.belongsTo(Round);
-User.hasMany(UserRound);
-Round.hasMany(UserRound);
 
 // Rounds contain many words
 // Words can belong to diff rounds

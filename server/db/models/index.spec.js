@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { db, Word, Round, Game, User } = require("../models");
+const { db, Word, Round, Game, User, UserRound } = require("../models");
 
 describe("Class and prototype methods", () => {
   beforeEach(() => db.sync({ force: true }));
@@ -120,25 +120,27 @@ describe("Round >-< User Association", () => {
       });
     });
 
-    it("Users can get their user rounds", async () => {
-      const user = await User.create({
-        email: "cody@email.com",
-        password: "123"
-      });
-      const round1 = await Round.create({
-        letters: "abcd",
-        coreLetter: "a",
-        gameDate: new Date()
-      });
-      const round2 = await Round.create({
-        letters: "abcd",
-        coreLetter: "c",
-        gameDate: new Date()
-      });
-      await user.addRounds([round1, round2]);
+    describe("User magic methods pt 2", () => {
+      it("Users can get their user rounds", async () => {
+        const user = await User.create({
+          email: "cody@email.com",
+          password: "123"
+        });
+        const round1 = await Round.create({
+          letters: "abcd",
+          coreLetter: "a",
+          gameDate: new Date()
+        });
+        const round2 = await Round.create({
+          letters: "abcd",
+          coreLetter: "c",
+          gameDate: new Date()
+        });
+        await user.addRounds([round1, round2]);
 
-      user.getUserRounds().then(userRounds => {
-        expect(userRounds.length).to.equal(2);
+        user.getUserRounds().then(userRounds => {
+          expect(userRounds.length).to.equal(2);
+        });
       });
     });
   });
@@ -167,24 +169,49 @@ describe("Round >-< User Association", () => {
     });
   });
 
-  it("Rounds can get their user rounds", async () => {
-    const round = await Round.create({
-      letters: "abcd",
-      coreLetter: "a",
-      gameDate: new Date()
-    });
-    const user1 = await User.create({
-      email: "cody@email.com",
-      password: "123"
-    });
-    const user2 = await User.create({
-      email: "murphy@email.com",
-      password: "123"
-    });
-    await round.addUsers([user1, user2]);
+  describe("Round magic method pt 2", () => {
+    it("Rounds can get their user rounds", async () => {
+      const round = await Round.create({
+        letters: "abcd",
+        coreLetter: "a",
+        gameDate: new Date()
+      });
+      const user1 = await User.create({
+        email: "cody@email.com",
+        password: "123"
+      });
+      const user2 = await User.create({
+        email: "murphy@email.com",
+        password: "123"
+      });
+      await round.addUsers([user1, user2]);
 
-    round.getUserRounds().then(userRounds => {
-      expect(userRounds.length).to.equal(2);
+      round.getUserRounds().then(userRounds => {
+        expect(userRounds.length).to.equal(2);
+      });
+    });
+  });
+
+  describe("User round magic methods", () => {
+    it.only("User rounds can get their user and round", async () => {
+      const round1 = await Round.create({
+        letters: "abcd",
+        coreLetter: "a",
+        gameDate: new Date()
+      });
+      const user1 = await User.create({
+        email: "cody@email.com",
+        password: "123"
+      });
+      await round1.addUser(user1);
+      const userRounds = await round1.getUserRounds();
+
+      userRounds[0].getUser().then(user => {
+        expect(user.id).to.equal(user1.id);
+      });
+      userRounds[0].getRound().then(round => {
+        expect(round.id).to.equal(round1.id);
+      });
     });
   });
 });
@@ -238,3 +265,53 @@ describe("Word >-< Round Association", () => {
     });
   });
 });
+
+// describe("Word >-< UserRound Association", () => {
+//   beforeEach(() => db.sync({ force: true }));
+
+//   describe("Word magic methods", () => {
+//     it("Each  has many words", async () => {
+//       const round = await Round.create({
+//         letters: "abcd",
+//         coreLetter: "a",
+//         gameDate: new Date()
+//       });
+
+//       await round.addWords([
+//         await Word.create({ word: "i" }),
+//         await Word.create({ word: "love" }),
+//         await Word.create({ word: "my" }),
+//         await Word.create({ word: "team" })
+//       ]);
+
+//       round.getWords().then(words => {
+//         expect(words.length).to.equal(4);
+//       });
+//     });
+//   });
+
+//   describe("Word magic methods", () => {
+//     it("Each word can be used in many rounds", async () => {
+//       const word = await Word.create({
+//         word: "panagram"
+//       });
+
+//       await word.addRounds([
+//         await Round.create({
+//           letters: "abcd",
+//           coreLetter: "a",
+//           gameDate: new Date()
+//         }),
+//         await Round.create({
+//           letters: "abcd",
+//           coreLetter: "a",
+//           gameDate: new Date()
+//         })
+//       ]);
+
+//       word.getRounds().then(rounds => {
+//         expect(rounds.length).to.equal(2);
+//       });
+//     });
+//   });
+// });
