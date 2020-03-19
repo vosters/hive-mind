@@ -77,7 +77,7 @@ describe("Game >-< User Association", () => {
   beforeEach(() => db.sync({ force: true }));
 
   describe("Game winner", () => {
-    it.only("Each game has a winner", async () => {
+    it("Each game has a winner", async () => {
       const game = await Game.create({
         date: new Date(),
         mode: "1v1"
@@ -89,6 +89,34 @@ describe("Game >-< User Association", () => {
       await game.setWinner(user);
       game.getWinner().then(winner => {
         expect(winner.id).to.equal(user.id);
+      });
+    });
+  });
+});
+
+describe("Round >-< User Association", () => {
+  beforeEach(() => db.sync({ force: true }));
+
+  describe("User rounds", () => {
+    it.only("Each user can play many rounds", async () => {
+      const user = await User.create({
+        email: "cody@email.com",
+        password: "123"
+      });
+      const round1 = await Round.create({
+        letters: "abcd",
+        coreLetter: "a",
+        gameDate: new Date()
+      });
+      const round2 = await Round.create({
+        letters: "abcd",
+        coreLetter: "c",
+        gameDate: new Date()
+      });
+      await user.addRounds([round1, round2]);
+
+      user.getRounds().then(rounds => {
+        expect(rounds.length).to.equal(2);
       });
     });
   });
