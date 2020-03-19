@@ -8,11 +8,9 @@ describe("Game model", () => {
       const date = new Date();
       return Game.create({
         date: date,
-        winner: true,
         mode: "1v1"
       }).then(game => {
         expect(game.date).to.deep.equal(date);
-        expect(game.winner).to.equal(true);
         expect(game.mode).to.equal("1v1");
       });
     });
