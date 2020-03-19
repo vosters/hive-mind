@@ -24,7 +24,8 @@ describe("Class and prototype methods", () => {
 
 describe("Game >-< Round Association", () => {
   beforeEach(() => db.sync({ force: true }));
-  describe("Sequelize assocations", () => {
+
+  describe("Round associations", () => {
     it("a round belongs to exactly one game", async () => {
       const round = await Round.create({
         letters: "abcd",
@@ -43,6 +44,30 @@ describe("Game >-< Round Association", () => {
       await round.setGame(game2);
       round.getGame().then(game => {
         expect(game.id).to.equal(game2.id);
+      });
+    });
+  });
+
+  describe("Game associations", () => {
+    it("a game can have many rounds", async () => {
+      const round1 = await Round.create({
+        letters: "abcd",
+        coreLetter: "a",
+        gameDate: new Date()
+      });
+      const round2 = await Round.create({
+        letters: "abcd",
+        coreLetter: "c",
+        gameDate: new Date()
+      });
+      const game = await Game.create({
+        date: new Date(),
+        mode: "1v1"
+      });
+      await game.addRound(round1);
+      await game.addRound(round2);
+      game.getRounds().then(rounds => {
+        expect(rounds.length).to.equal(2);
       });
     });
   });
