@@ -72,3 +72,24 @@ describe("Game >-< Round Association", () => {
     });
   });
 });
+
+describe("Game >-< User Association", () => {
+  beforeEach(() => db.sync({ force: true }));
+
+  describe("Game winner", () => {
+    it.only("Each game has a winner", async () => {
+      const game = await Game.create({
+        date: new Date(),
+        mode: "1v1"
+      });
+      const user = await User.create({
+        email: "cody@email.com",
+        password: "123"
+      });
+      await game.setWinner(user);
+      game.getWinner().then(winner => {
+        expect(winner.id).to.equal(user.id);
+      });
+    });
+  });
+});
