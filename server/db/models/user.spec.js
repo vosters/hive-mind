@@ -5,7 +5,7 @@ describe("User model", () => {
   beforeEach(() => db.sync({ force: true }));
   describe("column definitions and validations", () => {
     const date = new Date();
-    it.only("has a facebookId`, `email`, `password`, `username`, `photo`, `loacation`,`gender`, `age`, `createdAt`, and `isAdmin` property", () => {
+    it("has a facebookId`, `email`, `password`, `username`, `photo`, `loacation`,`gender`, `age`, `createdAt`, and `isAdmin` property", () => {
       return User.create({
         facebookId: "abcdefg",
         email: "johnsmith@gmial.com",

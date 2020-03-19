@@ -1,19 +1,20 @@
 const { expect } = require("chai");
 const { db, Round } = require(".");
 
-beforeEach(() => db.sync({ force: true }));
 describe("Round model", () => {
-  it("has a GameId, letters, coreLetter, and gameDate property", () => {
-    return Round.create({
-      gameId: 1,
-      letters: "ABCDEFG",
-      coreLetter: "A",
-      gameDate: new Date()
-    }).then(round => {
-      expect(round.gameId).to.equal(1);
-      expect(round.letters).to.equal("ABCDEFG");
-      expect(round.coreLetter).to.equal("A");
-      expect(round.gameDate).to.equal(new Date());
+  beforeEach(() => db.sync({ force: true }));
+  describe("Column definitions and validations", () => {
+    it("has a gameId, letters, coreLetter, and gameDate property", () => {
+      const date = new Date();
+      return Round.create({
+        letters: "ABCDEFG",
+        coreLetter: "A",
+        gameDate: date
+      }).then(round => {
+        expect(round.letters).to.equal("ABCDEFG");
+        expect(round.coreLetter).to.equal("A");
+        expect(round.gameDate).to.deep.equal(date);
+      });
     });
   });
 });
