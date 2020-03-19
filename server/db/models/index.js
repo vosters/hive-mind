@@ -29,12 +29,9 @@ Round.belongsToMany(User, { through: UserRound });
 Word.belongsToMany(Round, { through: "roundWords" });
 Round.belongsToMany(Word, { through: "roundWords" });
 
-// Word.belongsToMany(UserRound, { through: GuessedWord });
-// UserRound.belongsToMany(Word, { through: GuessedWord });
-// GuessedWord.belongsTo(Word);
-// GuessedWord.belongsTo(UserRound);
-// Word.hasMany(GuessedWord);
-// UserRound.hasMany(GuessedWord);
+// A user can guess many words in a round
+Word.belongsToMany(UserRound, { through: GuessedWord });
+UserRound.belongsToMany(Word, { through: GuessedWord });
 
 /** Instance methods here **/
 
