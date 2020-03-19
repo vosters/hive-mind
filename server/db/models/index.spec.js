@@ -150,7 +150,7 @@ describe("Word >-< Round Association", () => {
   beforeEach(() => db.sync({ force: true }));
 
   describe("Round words", () => {
-    it.only("Each round has many words", async () => {
+    it("Each round has many words", async () => {
       const round = await Round.create({
         letters: "abcd",
         coreLetter: "a",
