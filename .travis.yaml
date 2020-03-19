@@ -16,5 +16,3 @@ before_script:
   - psql -c 'create database "hive-mind-test";' -U postgres
 script:
   - npm test # test the code
-  - npm run build-client # make the bundle
-  api_key: 9l53e1Ii9Z3zYweGQu2QgQ
