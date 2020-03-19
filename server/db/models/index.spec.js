@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const { db, Word, Round, Game } = require("../models");
+const { db, Word, Round, Game, User } = require("../models");
 
 describe("Class and prototype methods", () => {
   beforeEach(() => db.sync({ force: true }));

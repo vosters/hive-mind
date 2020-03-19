@@ -14,10 +14,13 @@ Round … given a round, set letters. Query MongoDb
 Create tests for associations
 */
 
-// Game has one user... winner!
-
+// Games have many rounds
 Game.hasMany(Round);
 Round.belongsTo(Game);
+
+// Games have one winner
+// User winner as the accessor method instead of user
+Game.belongsTo(User, { as: "winner", foreignKey: "winnerId" });
 
 User.belongsToMany(Round, { through: UserRound });
 Round.belongsToMany(User, { through: UserRound });
