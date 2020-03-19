@@ -149,8 +149,8 @@ describe("Round >-< User Association", () => {
 describe("Word >-< Round Association", () => {
   beforeEach(() => db.sync({ force: true }));
 
-  describe("Round words", () => {
-    it.only("Each round has many words", async () => {
+  describe("Round magic methods", () => {
+    it("Each round has many words", async () => {
       const round = await Round.create({
         letters: "abcd",
         coreLetter: "a",
@@ -166,6 +166,31 @@ describe("Word >-< Round Association", () => {
 
       round.getWords().then(words => {
         expect(words.length).to.equal(4);
+      });
+    });
+  });
+
+  describe("Word magic methods", () => {
+    it.only("Each word can be used in many rounds", async () => {
+      const word = await Word.create({
+        word: "panagram"
+      });
+
+      await word.addRounds([
+        await Round.create({
+          letters: "abcd",
+          coreLetter: "a",
+          gameDate: new Date()
+        }),
+        await Round.create({
+          letters: "abcd",
+          coreLetter: "a",
+          gameDate: new Date()
+        })
+      ]);
+
+      word.getRounds().then(rounds => {
+        expect(rounds.length).to.equal(2);
       });
     });
   });
