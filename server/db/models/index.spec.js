@@ -193,7 +193,8 @@ describe("Round >-< User Association", () => {
   });
 
   describe("User round magic methods", () => {
-    it.only("User rounds can get their user and round", async () => {
+    it.only("User rounds can set and get their user and round", async () => {
+      const userRound = await UserRound.create({});
       const round1 = await Round.create({
         letters: "abcd",
         coreLetter: "a",
@@ -203,13 +204,13 @@ describe("Round >-< User Association", () => {
         email: "cody@email.com",
         password: "123"
       });
-      await round1.addUser(user1);
-      const userRounds = await round1.getUserRounds();
+      await userRound.setUser(user1);
+      await userRound.setRound(round1);
 
-      userRounds[0].getUser().then(user => {
+      userRound.getUser().then(user => {
         expect(user.id).to.equal(user1.id);
       });
-      userRounds[0].getRound().then(round => {
+      userRound.getRround().then(round => {
         expect(round.id).to.equal(round1.id);
       });
     });
