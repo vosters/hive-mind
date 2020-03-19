@@ -58,6 +58,11 @@ const User = db.define("user", {
     defaultValue: false
   },
 
+  isOnboarded: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+
   salt: {
     type: Sequelize.STRING,
     get() {
