@@ -4,6 +4,7 @@ const User = require("./user");
 const Word = require("./word");
 const UserRound = require("./userRound");
 const GuessedWord = require("./guessedWord");
+const db = require("../db");
 
 /** Model associations here **/
 
@@ -33,7 +34,7 @@ UserRound.belongsToMany(Word, { through: GuessedWord });
 /** Instance methods here **/
 
 Word.alphabetize = async function() {
-  const words = await Word.findAll();
+  const words = await Word.findAll({ order: [["word", "ASC"]] });
 
   // something to sort according to first letter
   return words;
@@ -50,5 +51,8 @@ module.exports = {
   Game,
   Round,
   User,
-  Word
+  Word,
+  UserRound,
+  GuessedWord,
+  db
 };
