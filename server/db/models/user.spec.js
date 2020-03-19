@@ -5,7 +5,7 @@ describe("User model", () => {
   beforeEach(() => db.sync({ force: true }));
   describe("column definitions and validations", () => {
     const date = new Date();
-    it("has a facebookId`, `email`, `password`, `username`, `photo`, `loacation`,`gender`, `age`, `createdAt`, and `isAdmin` property", () => {
+    it("has a facebookId`, `email`, `password`, `username`, `photo`, `loacation`,`gender`, `age`, `createdAt`, `isAdmin`, and `isOnboarded` property", () => {
       return User.create({
         facebookId: "abcdefg",
         email: "johnsmith@gmial.com",
@@ -16,7 +16,8 @@ describe("User model", () => {
         gender: "male",
         age: 21,
         createdAt: date,
-        isAdmin: false
+        isAdmin: false,
+        isOnboarded: false
       }).then(user => {
         expect(user.facebookId).to.equal("abcdefg");
         expect(user.email).to.equal("johnsmith@gmial.com");
@@ -27,6 +28,7 @@ describe("User model", () => {
         expect(user.age).to.equal(21);
         expect(user.createdAt).to.deep.equal(date);
         expect(user.isAdmin).to.equal(false);
+        expect(user.isOnboarded).to.equal(false);
       });
     });
   });
