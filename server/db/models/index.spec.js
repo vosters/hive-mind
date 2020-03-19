@@ -25,7 +25,7 @@ describe("Class and prototype methods", () => {
 describe("Game >-< Round Association", () => {
   beforeEach(() => db.sync({ force: true }));
 
-  describe("Round associations", () => {
+  describe("Round magic methods", () => {
     it("a round belongs to exactly one game", async () => {
       const round = await Round.create({
         letters: "abcd",
@@ -48,7 +48,7 @@ describe("Game >-< Round Association", () => {
     });
   });
 
-  describe("Game associations", () => {
+  describe("Game magic methods", () => {
     it("a game can have many rounds", async () => {
       const round1 = await Round.create({
         letters: "abcd",
@@ -97,7 +97,7 @@ describe("Game >-< User Association", () => {
 describe("Round >-< User Association", () => {
   beforeEach(() => db.sync({ force: true }));
 
-  describe("User rounds", () => {
+  describe("User magic methods", () => {
     it("Each user can play many rounds", async () => {
       const user = await User.create({
         email: "cody@email.com",
@@ -121,7 +121,7 @@ describe("Round >-< User Association", () => {
     });
   });
 
-  describe("User rounds", () => {
+  describe("Round magic methods", () => {
     it("Each round can have many users", async () => {
       const round = await Round.create({
         letters: "abcd",

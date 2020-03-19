@@ -14,22 +14,31 @@ Round … given a round, set letters. Query MongoDb
 Create tests for associations
 */
 
-// Games have many rounds
-Game.hasMany(Round);
-Round.belongsTo(Game);
-
-// Games have one winner
+/* One-to-one associations */
+// One game has one winner
 // Winner as the accessor method instead of user
 Game.belongsTo(User, { as: "winner", foreignKey: "winnerId" });
 
+/* One-to-many associations */
+
+// One game has many rounds
+Game.hasMany(Round);
+Round.belongsTo(Game);
+
+/* Many-to-many associations */
+
+// Rounds contain many users
+// Users can play in many rounds
 User.belongsToMany(Round, { through: UserRound });
 Round.belongsToMany(User, { through: UserRound });
 
-// All possible words for a round
+// Rounds contain many words
+// Words can belong to diff rounds
 Word.belongsToMany(Round, { through: "roundWords" });
 Round.belongsToMany(Word, { through: "roundWords" });
 
-// A user can guess many words in a round
+/* A user can guess many words in a particular round */
+/* A word can be guessed by many users */
 Word.belongsToMany(UserRound, { through: GuessedWord });
 UserRound.belongsToMany(Word, { through: GuessedWord });
 
