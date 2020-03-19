@@ -32,6 +32,12 @@ Round.belongsTo(Game);
 User.belongsToMany(Round, { through: UserRound });
 Round.belongsToMany(User, { through: UserRound });
 
+// UserRound has one user, one round
+UserRound.belongsTo(User);
+UserRound.belongsTo(Round);
+User.hasMany(UserRound);
+Round.hasMany(UserRound);
+
 // Rounds contain many words
 // Words can belong to diff rounds
 Word.belongsToMany(Round, { through: "roundWords" });
@@ -42,7 +48,7 @@ Round.belongsToMany(Word, { through: "roundWords" });
 Word.belongsToMany(UserRound, { through: GuessedWord });
 UserRound.belongsToMany(Word, { through: GuessedWord });
 
-/** Instance methods here **/
+/** Class methods here **/
 
 Word.alphabetize = async function() {
   const words = await Word.findAll({ order: [["word", "ASC"]] });

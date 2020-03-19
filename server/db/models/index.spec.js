@@ -119,6 +119,28 @@ describe("Round >-< User Association", () => {
         expect(rounds.length).to.equal(2);
       });
     });
+
+    it("Users can get their user rounds", async () => {
+      const user = await User.create({
+        email: "cody@email.com",
+        password: "123"
+      });
+      const round1 = await Round.create({
+        letters: "abcd",
+        coreLetter: "a",
+        gameDate: new Date()
+      });
+      const round2 = await Round.create({
+        letters: "abcd",
+        coreLetter: "c",
+        gameDate: new Date()
+      });
+      await user.addRounds([round1, round2]);
+
+      user.getUserRounds().then(userRounds => {
+        expect(userRounds.length).to.equal(2);
+      });
+    });
   });
 
   describe("Round magic methods", () => {
@@ -142,6 +164,27 @@ describe("Round >-< User Association", () => {
       round.getUsers().then(users => {
         expect(users.length).to.equal(2);
       });
+    });
+  });
+
+  it("Rounds can get their user rounds", async () => {
+    const round = await Round.create({
+      letters: "abcd",
+      coreLetter: "a",
+      gameDate: new Date()
+    });
+    const user1 = await User.create({
+      email: "cody@email.com",
+      password: "123"
+    });
+    const user2 = await User.create({
+      email: "murphy@email.com",
+      password: "123"
+    });
+    await round.addUsers([user1, user2]);
+
+    round.getUserRounds().then(userRounds => {
+      expect(userRounds.length).to.equal(2);
     });
   });
 });
@@ -171,7 +214,7 @@ describe("Word >-< Round Association", () => {
   });
 
   describe("Word magic methods", () => {
-    it.only("Each word can be used in many rounds", async () => {
+    it("Each word can be used in many rounds", async () => {
       const word = await Word.create({
         word: "panagram"
       });
