@@ -7,11 +7,6 @@ const Game = db.define("game", {
     allowNull: false
   },
 
-  winner: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false
-  },
-
   mode: {
     type: Sequelize.STRING,
     allowNull: false
