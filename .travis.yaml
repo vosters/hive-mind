@@ -17,6 +17,4 @@ before_script:
 script:
   - npm test # test the code
   - npm run build-client # make the bundle
-  # the secure key indicates an encrypted value; see README
-  api_key:
-    secure: 9l53e1Ii9Z3zYweGQu2QgQ
+  api_key: 9l53e1Ii9Z3zYweGQu2QgQ
