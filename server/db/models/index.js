@@ -34,7 +34,7 @@ UserRound.belongsToMany(Word, { through: GuessedWord });
 /** Instance methods here **/
 
 Word.alphabetize = async function() {
-  const words = await Word.findAll();
+  const words = await Word.findAll({ order: [["word", "ASC"]] });
 
   // something to sort according to first letter
   return words;
