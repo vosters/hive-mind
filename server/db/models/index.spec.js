@@ -25,24 +25,25 @@ describe("Class and prototype methods", () => {
 describe("Game >-< Round Association", () => {
   beforeEach(() => db.sync({ force: true }));
   describe("Sequelize assocations", () => {
-    it("a round may belong to many games", async () => {
+    it("a round belongs to exactly one game", async () => {
       const round = await Round.create({
         letters: "abcd",
         coreLetter: "a",
         gameDate: new Date()
       });
-      const game = await Game.create({
+      const game1 = await Game.create({
         date: new Date(),
-        winner: boolean
+        mode: "1v1"
       });
-      const orderInProgress = await Order.create({ status: "PENDING" });
-      const orderCompleted = await Order.create({ status: "COMPLETED" });
-      await user.addOrder([orderInProgress, orderCompleted]);
-      const userOrders = await user.getOrders();
-      expect(userOrders.map(order => order.status)).to.deep.equal([
-        "PENDING",
-        "COMPLETED"
-      ]);
+      const game2 = await Game.create({
+        date: new Date(),
+        mode: "competition"
+      });
+      await round.setGame(game1);
+      await round.setGame(game2);
+      round.getGame().then(game => {
+        expect(game.id).to.equal(game2.id);
+      });
     });
   });
 });

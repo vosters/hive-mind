@@ -14,6 +14,8 @@ Round … given a round, set letters. Query MongoDb
 Create tests for associations
 */
 
+// Game has one user... winner!
+
 Game.hasMany(Round);
 Round.belongsTo(Game);
 
