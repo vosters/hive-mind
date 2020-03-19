@@ -17,7 +17,7 @@ describe("User model", () => {
         age: 21,
         createdAt: date,
         isAdmin: false,
-        isOnboarded: false
+        isOnboarded: false,
       }).then(user => {
         expect(user.facebookId).to.equal("abcdefg");
         expect(user.email).to.equal("johnsmith@gmial.com");
