@@ -19,18 +19,14 @@ Game.hasMany(Round);
 Round.belongsTo(Game);
 
 // Games have one winner
-// User winner as the accessor method instead of user
+// Winner as the accessor method instead of user
 Game.belongsTo(User, { as: "winner", foreignKey: "winnerId" });
 
 User.belongsToMany(Round, { through: UserRound });
 Round.belongsToMany(User, { through: UserRound });
-// UserRound.belongsTo(User)
-// UserRound.belongsTo(Round)
-// User.hasMany(UserRound)
-// Round.hasMany(UserRound)
 
-Word.belongsToMany(UserRound, { through: GuessedWord });
-UserRound.belongsToMany(Word, { through: GuessedWord });
+// Word.belongsToMany(UserRound, { through: GuessedWord });
+// UserRound.belongsToMany(Word, { through: GuessedWord });
 // GuessedWord.belongsTo(Word);
 // GuessedWord.belongsTo(UserRound);
 // Word.hasMany(GuessedWord);

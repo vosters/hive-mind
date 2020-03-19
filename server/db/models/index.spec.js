@@ -98,7 +98,7 @@ describe("Round >-< User Association", () => {
   beforeEach(() => db.sync({ force: true }));
 
   describe("User rounds", () => {
-    it.only("Each user can play many rounds", async () => {
+    it("Each user can play many rounds", async () => {
       const user = await User.create({
         email: "cody@email.com",
         password: "123"
@@ -117,6 +117,30 @@ describe("Round >-< User Association", () => {
 
       user.getRounds().then(rounds => {
         expect(rounds.length).to.equal(2);
+      });
+    });
+  });
+
+  describe("User rounds", () => {
+    it("Each round can have many users", async () => {
+      const round = await Round.create({
+        letters: "abcd",
+        coreLetter: "a",
+        gameDate: new Date()
+      });
+      const user1 = await User.create({
+        email: "cody@email.com",
+        password: "123"
+      });
+      const user2 = await User.create({
+        email: "murphy@email.com",
+        password: "123"
+      });
+
+      await round.addUsers([user1, user2]);
+
+      round.getUsers().then(users => {
+        expect(users.length).to.equal(2);
       });
     });
   });
