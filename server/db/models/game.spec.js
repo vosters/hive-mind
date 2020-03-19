@@ -5,16 +5,15 @@ describe("Game model", () => {
   beforeEach(() => db.sync({ force: true }));
   describe("column definitions and validations", () => {
     it("has a roundId date, winner, and mode property", () => {
+      const date = new Date();
       return Game.create({
-        roundId: 1,
-         date: new Date(),
-         winner: true,
-         mode: '1v1'
+        date: date,
+        winner: true,
+        mode: "1v1"
       }).then(game => {
-        expect(game.roundId).to.equal("ABCD");
-        expect(game.date).to.equal(new Date());
+        expect(game.date).to.deep.equal(date);
         expect(game.winner).to.equal(true);
-        expect(game.mode).to.equal('1v1');
+        expect(game.mode).to.equal("1v1");
       });
     });
   });
