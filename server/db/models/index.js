@@ -25,6 +25,10 @@ Game.belongsTo(User, { as: "winner", foreignKey: "winnerId" });
 User.belongsToMany(Round, { through: UserRound });
 Round.belongsToMany(User, { through: UserRound });
 
+// All possible words for a round
+Word.belongsToMany(Round, { through: "roundWords" });
+Round.belongsToMany(Word, { through: "roundWords" });
+
 // Word.belongsToMany(UserRound, { through: GuessedWord });
 // UserRound.belongsToMany(Word, { through: GuessedWord });
 // GuessedWord.belongsTo(Word);

@@ -145,3 +145,28 @@ describe("Round >-< User Association", () => {
     });
   });
 });
+
+describe("Word >-< Round Association", () => {
+  beforeEach(() => db.sync({ force: true }));
+
+  describe("Round words", () => {
+    it.only("Each round has many words", async () => {
+      const round = await Round.create({
+        letters: "abcd",
+        coreLetter: "a",
+        gameDate: new Date()
+      });
+
+      await round.addWords([
+        await Word.create({ word: "i" }),
+        await Word.create({ word: "love" }),
+        await Word.create({ word: "my" }),
+        await Word.create({ word: "team" })
+      ]);
+
+      round.getWords().then(words => {
+        expect(words.length).to.equal(4);
+      });
+    });
+  });
+});
